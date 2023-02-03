@@ -13,20 +13,11 @@ def unauthenticated_user(view_func):
     :param view_func:
     :return:
     """
-
     def wrapper_func(request, *args, **kwargs):
         if request.user.is_authenticated:
-            user_group = request.user.groups.all()[0].name
-            redirect_to = {
-                'sybadmin': redirect('syb_admin_page'),
-                'collegeadmin': redirect('college_page'),
-                'teacher': redirect('college_teacher'),
-                'student': redirect('college_student'),
-            }
-            return redirect_to[user_group]
+            return redirect('home')  # TODO: change the redirection page
         else:
             return view_func(request, *args, **kwargs)
-
     return wrapper_func
 
 
@@ -37,7 +28,6 @@ def allowed_users(allowed_roles=[]):
     :param allowed_roles:
     :return:
     """
-
     def decorator(view_func):
         def wrapper_func(request, *args, **kwargs):
             group = None
@@ -47,7 +37,5 @@ def allowed_users(allowed_roles=[]):
                 return view_func(request, *args, **kwargs)
             else:
                 HttpResponse('You are not authorized to view this page')  # TODO: make a standalone page for this
-
         return wrapper_func
-
     return decorator
