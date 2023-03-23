@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, allowed_users
 from .models import *
-# import all the files
+# import all the necessary and required files
 
 # Views and endpoints
 def home(request):
